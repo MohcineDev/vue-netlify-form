@@ -22,7 +22,6 @@
         name="tel"
         v-model="form.tel"
         placeholder="Phone Number"
-        pattern="^[0]"
         minlength="9"
       />
       <label>Your Message</label>

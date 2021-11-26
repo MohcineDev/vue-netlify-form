@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import SubmissionSuccess from '../components/SubmissionSuccess'
+import SubmissionFail from '../components/SubmissionFail'
 
 const routes = [
   {
@@ -14,6 +16,16 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path:'/thanks',
+    name:"success",
+    component:SubmissionSuccess
+  },
+  {
+    path:'/404',
+    name:"fail",
+    component:SubmissionFail
   }
 ]
 

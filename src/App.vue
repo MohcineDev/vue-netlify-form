@@ -8,7 +8,7 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Outfit, Arial, sans-serif ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -26,5 +26,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+textarea, input{
+  font-family: Outfit, Arial, sans-serif ;
+
 }
 </style>

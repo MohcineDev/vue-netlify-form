@@ -14,7 +14,14 @@
         minlength="4"
       />
       <label>Email</label>
-      <input type="email" required name="email" v-model="form.email" placeholder="email" minlength="8" />
+      <input
+        type="email"
+        required
+        name="email"
+        v-model="form.email"
+        placeholder="email"
+        minlength="8"
+      />
       <label>Phone Number</label>
       <input
         type="tel"
@@ -60,32 +67,37 @@ export default {
     encode(data) {
       return Object.keys(data)
         .map(
-          (key) =>
-            `${encodeURIComponent(key)} = ${encodeURIComponent(data[key])}`
+          (key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
         )
         .join("&");
     },
     handleSubmit() {
       console.log(123);
-      const axiosConfig = {
-        header: { "Content-Type": "application/x-www-form-urlencoded" },
-      };
-
-      axios
-        .post(
-          "/",
-          this.encode({
-            "form-name": "contactus",
-            ...this.form,
-          }),
-          axiosConfig
-        )
-        .then(() => {
+      // const axiosConfig = {
+      //   header: { "Content-Type": "application/x-www-form-urlencoded" },
+      // }; 
+        fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: this.encode({
+          "form-name": "contactus",
+          ...this.form,
+        }),
+      }).then(() => {
           this.$router.push("thanks");
         })
         .catch(() => {
           this.$router.push("404");
         });
+
+        //  axios.post(
+        //   "/",
+        //   this.encode({
+        //     "form-name": "contactus",
+        //     ...this.form,
+        //   }),
+        //   axiosConfig
+        // )
     },
   },
 };

@@ -1,49 +1,66 @@
 <template>
   <section class="contact">
-    <h2>contact us</h2>
-    <form name="contactus" method="POST" @submit.prevent="handleSubmit" data-netlify="true">
+    <h2>Contact Us</h2>
+    <form
+      name="contactus"
+      method="POST"
+      @submit.prevent="checkforErrors"
+      data-netlify="true"
+    >
       <input type="hidden" name="form-name" value="contactus" />
-      <label>Full Name</label>
-      <input
-        type="text"
-        required
-        name="fullname"
-        v-model="form.fullname"
-        placeholder="Full Name"
-        id="fullname"
-        minlength="4"
-      />
-      <label>Email</label>
-      <input
-        type="email"
-        required
-        name="email"
-        v-model="form.email"
-        placeholder="email"
-        minlength="8"
-      />
-      <label>Phone Number</label>
-      <input
-        type="tel"
-        required
-        name="tel"
-        v-model="form.tel"
-        placeholder="Phone Number"
-        minlength="9"
-      />
-      <label>Your Message</label>
-      <textarea
-        name="msg"
-        cols="30"
-        required
-        rows="5"
-        minlength="10"
-        maxlength="100"
-        v-model="form.msg"
-        placeholder="Your Message..."
-      ></textarea>
-      <button type="submit">Send</button>
-      <!-- <input type="submit" value="Submit" /> -->
+      <div>
+        <label>Full Name</label>
+        <input
+          type="text"
+          required
+          name="fullname"
+          v-model="form.fullname"
+          placeholder="Full Name"
+          id="fullname"
+          minlength="4"
+        />
+        <span v-if="errors.fullnameError" v-text="errors.fullnameError"></span>
+      </div>
+      <div>
+        <label>Email</label>
+         
+        <input
+          type="email"
+          required
+          name="email"
+          v-model="form.email"
+          placeholder="email"
+          minlength="8"
+        />
+        <span v-if="errors.emailError" v-text="errors.emailError"></span>
+      </div>
+      <div>
+        <label>Phone Number</label>
+         <input
+          type="tel"
+          required
+          name="tel"
+          v-model="form.tel"
+          placeholder="Phone Number"
+          minlength="9"
+        />   
+        <span v-if="errors.telError" v-text="errors.telError"></span>
+      </div>
+      <div>
+        <label>Your Message</label>
+         <textarea
+          name="msg"
+          cols="30"
+          required
+          rows="5"
+          minlength="10"
+          maxlength="100"
+          v-model="form.msg"
+          placeholder="Your Message..."
+        ></textarea>
+        <span v-if="errors.msgError"  v-text="errors.msgError"></span>
+      </div>
+      <input type="submit" value="Submit" />
     </form>
   </section>
 </template>
@@ -54,6 +71,12 @@ import axios from "axios";
 export default {
   data() {
     return {
+      errors: {
+        fullnameError: "",
+        emailError: "",
+        telError: "",
+        msgError: "",
+      },
       form: {
         fullname: "",
         email: "",
@@ -64,6 +87,16 @@ export default {
   },
 
   methods: {
+    checkforErrors() {
+      if (this.form.fullname.trim() == "") {
+        this.errors.fullnameError = "enter your full name";
+      } else if (this.form.fullname.trim().length < 4) {
+        this.errors.fullnameError = "please enter a valid full name";
+      } else {
+        this.handleSubmit();
+      }
+
+    },
     encode(data) {
       return Object.keys(data)
         .map(
@@ -75,29 +108,30 @@ export default {
       console.log(123);
       // const axiosConfig = {
       //   header: { "Content-Type": "application/x-www-form-urlencoded" },
-      // }; 
-        fetch("/", {
+      // };
+      fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        "form-name": "contactus",
         body: this.encode({
-          "form-name": "contactus",
           ...this.form,
         }),
-      }).then(() => {
+      })
+        .then(() => {
           this.$router.push("thanks");
         })
         .catch(() => {
           this.$router.push("404");
         });
 
-        //  axios.post(
-        //   "/",
-        //   this.encode({
-        //     "form-name": "contactus",
-        //     ...this.form,
-        //   }),
-        //   axiosConfig
-        // )
+      //  axios.post(
+      //   "/",
+      //   this.encode({
+      //     "form-name": "contactus",
+      //     ...this.form,
+      //   }),
+      //   axiosConfig
+      // )
     },
   },
 };
@@ -109,15 +143,26 @@ section {
   margin: auto;
 }
 h2 {
-  color: #ff6200;
+  color: #42b983;
 }
 form {
   width: 50%;
   margin: auto;
 }
+form div {
+  position: relative;
+  padding-bottom: 1rem;
+}
+form div span {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+  font-size: 14px;
+  color: rgb(181, 82, 100);
+}
 label {
   display: block;
-  margin-top: 1rem;
+  margin-top: 5px;
   color: #4d148c;
   text-align: left;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>You're Awesome! Thank you for your submission!</h1>
+    <h2>Thanks for reaching out <br>we will respond to you asap</h2>  
     <router-link class="back" to="/">
     </router-link>
   </div>
@@ -16,7 +16,7 @@ export default {
 div{
   text-align: center;
 }
-h1{
+h2{
   margin-bottom: 3rem;
 
 }

@@ -17,48 +17,43 @@
           v-model="form.fullname"
           placeholder="Full Name"
           id="fullname"
-          minlength="4"
         />
         <span v-if="errors.fullnameError" v-text="errors.fullnameError"></span>
       </div>
       <div>
         <label>Email</label>
-         
+
         <input
           type="email"
           required
           name="email"
           v-model="form.email"
           placeholder="email"
-          minlength="8"
         />
         <span v-if="errors.emailError" v-text="errors.emailError"></span>
       </div>
       <div>
         <label>Phone Number</label>
-         <input
+        <input
           type="tel"
-          required
           name="tel"
           v-model="form.tel"
           placeholder="Phone Number"
-          minlength="9"
-        />   
+        />
         <span v-if="errors.telError" v-text="errors.telError"></span>
       </div>
       <div>
         <label>Your Message</label>
-         <textarea
+        <textarea
           name="msg"
           cols="30"
           required
           rows="5"
-          minlength="10"
           maxlength="100"
           v-model="form.msg"
           placeholder="Your Message..."
         ></textarea>
-        <span v-if="errors.msgError"  v-text="errors.msgError"></span>
+        <span v-if="errors.msgError" v-text="errors.msgError"></span>
       </div>
       <input type="submit" value="Submit" />
     </form>
@@ -90,12 +85,19 @@ export default {
     checkforErrors() {
       if (this.form.fullname.trim() == "") {
         this.errors.fullnameError = "enter your full name";
-      } else if (this.form.fullname.trim().length < 4) {
+      } else if (this.form.fullname.trim().length < 6) {
         this.errors.fullnameError = "please enter a valid full name";
+      } else if (this.form.email.trim() == "") {
+        this.errors.emailError = "enter your email";
+      } else if (this.form.email.trim().length < 6) {
+        this.errors.fullnameError = "";
+        this.errors.emailError = "please enter a valid email";
+      } else if (this.form.msg.trim() == "") {
+        this.errors.emailError = "";
+        this.errors.msgError = "please enter your msg here";
       } else {
         this.handleSubmit();
       }
-
     },
     encode(data) {
       return Object.keys(data)
@@ -105,7 +107,6 @@ export default {
         .join("&");
     },
     handleSubmit() {
-      console.log(123);
       // const axiosConfig = {
       //   header: { "Content-Type": "application/x-www-form-urlencoded" },
       // };

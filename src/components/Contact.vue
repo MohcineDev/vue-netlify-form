@@ -2,7 +2,7 @@
   <section class="contact">
     <h2>Contact Us</h2>
     <form
-      name="contactus"
+      name="contactus" method="POST" 
 netlify
     >
       <input type="hidden" name="form-name" value="contactus" />

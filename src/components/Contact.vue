@@ -3,9 +3,7 @@
     <h2>Contact Us</h2>
     <form
       name="contactus"
-      method="POST"
-      @submit.prevent="checkforErrors"
-      data-netlify="true"
+netlify
     >
       <input type="hidden" name="form-name" value="contactus" />
       <div>
@@ -80,6 +78,7 @@ export default {
       },
     };
   },
+  // @submit.prevent="checkforErrors"
 
   methods: {
     checkforErrors() {
